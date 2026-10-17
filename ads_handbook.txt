@@ -1,0 +1,22 @@
+ADS TEAM HANDBOOK (sample document for Day 10 and Day 11)
+
+1. Budget rules
+Every campaign starts with a test budget of $20 per day for the first 3 days. A campaign can only be scaled after it has at least 10 conversions. When scaling, increase the daily budget by no more than 20% per day, because bigger jumps reset the learning phase. The total monthly ad budget for the team is $6,000, and any single campaign above $1,500 per month needs approval from the marketing manager.
+
+2. When to stop a campaign
+Pause a campaign if the cost per conversion is more than 2 times the target for 3 days in a row. The current target cost per conversion is $8. Also pause any ad whose click-through rate stays below 0.8% after 5,000 impressions, because the creative is not attracting attention. Never delete a paused campaign; keep it for reporting.
+
+3. Creative guidelines
+Videos must be under 15 seconds and show the product in the first 2 seconds. Use captions on every video, since most people watch without sound. Images should have less than 20% text. Every ad must include a clear call to action such as "Order now" or "Chat with us". Refresh creatives every 2 weeks to avoid ad fatigue.
+
+4. Audiences
+Retargeting audiences include people who visited the website or messaged the page in the last 30 days. Lookalike audiences are built from customers who purchased in the last 90 days, starting at 1% similarity. Exclude existing customers from prospecting campaigns so the budget is not wasted on people who already bought.
+
+5. Reporting
+The hourly report screenshot is sent to the team group automatically. Every Monday at 10:00 the team reviews last week's results: spend, conversions, cost per conversion and click-through rate for each campaign. Any campaign with a cost per conversion under $5 is marked as a winner and gets more budget that week.
+
+6. Domains and landing pages
+All landing pages must load in under 3 seconds on mobile. If a landing page domain is blocked by Nawala, switch the ads to the backup domain within 1 hour and inform the tech team. Domain status is checked automatically by the Telegram bot every 30 minutes.
+
+7. Customer messages
+Reply to every comment or chat message within 15 minutes during working hours (09:00 to 21:00). Questions about price and shipping should be answered with the standard template. Negative comments must never be deleted; reply politely and move the conversation to private chat.

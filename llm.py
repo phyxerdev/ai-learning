@@ -6,11 +6,11 @@ import os
 from dotenv import load_dotenv
 from openai import OpenAI
 
-load_dotenv()
+load_dotenv()   # reads .env locally; never overrides variables that are already set (e.g. Streamlit Secrets)
 
 BASE_URL = os.getenv("LLM_BASE_URL", "http://localhost:11434/v1")
 API_KEY = os.getenv("LLM_API_KEY", "ollama")
-MODEL = os.getenv("LLM_MODEL", "qwen3:30b-a3b")
+MODEL = os.getenv("LLM_MODEL", "qwen3:8b")
 # Qwen3 on Ollama thinks by default; "/no_think" turns it off. Other engines ignore it harmlessly,
 # but you can set NO_THINK_TAG= (empty) in .env when you switch engines.
 NO_THINK_TAG = os.getenv("NO_THINK_TAG", " /no_think")
@@ -41,3 +41,36 @@ def chat(messages, stream=False, temperature=0.3, max_tokens=1200):
             text += piece
     print()
     return text
+
+
+def stream_chat(messages, temperature=0.3, max_tokens=1200):
+    """
+    Generator version for web apps (Streamlit's st.write_stream):
+    yields the answer piece by piece instead of printing it.
+    Hides a <think>...</think> block if the model puts one at the start of its answer.
+    """
+    resp = client.chat.completions.create(
+        model=MODEL, messages=messages, temperature=temperature,
+        max_tokens=max_tokens, stream=True,
+    )
+    buffer, passing = "", False
+    for chunk in resp:
+        if not (chunk.choices and chunk.choices[0].delta.content):
+            continue
+        piece = chunk.choices[0].delta.content
+        if passing:
+            yield piece
+            continue
+        buffer += piece
+        stripped = buffer.lstrip()
+        if stripped.startswith("<think>"):
+            if "</think>" in stripped:           # thinking finished: send what comes after it
+                passing = True
+                rest = stripped.split("</think>", 1)[1].lstrip()
+                if rest:
+                    yield rest
+        elif len(stripped) >= 7 or not "<think>".startswith(stripped):
+            passing = True                       # normal answer, no thinking block
+            yield buffer
+    if not passing and buffer.strip() and not buffer.lstrip().startswith("<think>"):
+        yield buffer
